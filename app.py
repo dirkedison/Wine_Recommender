@@ -21,9 +21,9 @@ description = st.sidebar.text_area("Describe the type of wine you like")
 # Filter the dataset based on user inputs
 filtered_data = wine_data[
     ((wine_data['title'].str.contains(wine_name, case=False)) if wine_name else True) &
-    ((wine_data['type'] == wine_type) if wine_type != 'Any' else True) &
+    ((wine_data['variety'] == wine_type) if wine_type != 'Any' else True) &
     ((wine_data['country'] == country) if country != 'Any' else True) &
-    ((wine_data['region'] == region) if region != 'Any' else True) &
+    ((wine_data['region'].str.contains(region)) if region != 'Any' else True) &
     ((wine_data['price'].between(0, 20)) if price_range == '<$20' else True) &
     ((wine_data['price'].between(20, 50)) if price_range == '$20-$50' else True) &
     ((wine_data['price'] > 50) if price_range == '>$50' else True) &
@@ -59,9 +59,9 @@ wine_data['similarity_score'] = cosine_similarities
 
 # Sort the wines based on similarity score and other filters
 recommended_wines = wine_data[
-    ((wine_data['type'] == wine_type) if wine_type != 'Any' else True) &
+    ((wine_data['variety'] == wine_type) if wine_type != 'Any' else True) &
     ((wine_data['country'] == country) if country != 'Any' else True) &
-    ((wine_data['region'] == region) if region != 'Any' else True) &
+    ((wine_data['region'].str.contains(region)) if region != 'Any' else True) &
     ((wine_data['price'].between(0, 20)) if price_range == '<$20' else True) &
     ((wine_data['price'].between(20, 50)) if price_range == '$20-$50' else True) &
     ((wine_data['price'] > 50) if price_range == '>$50' else True) &
@@ -72,7 +72,7 @@ recommended_wines = wine_data[
 st.title("Recommended Wines")
 for index, row in recommended_wines.iterrows():
     st.subheader(f"{row['title']} ({row['points']} points)")
-    st.write(f"Type: {row['type']}")
+    st.write(f"Type: {row['variety']}")
     st.write(f"Country: {row['country']}")
     st.write(f"Region: {row['region']}")
     st.write(f"Price: ${row['price']}")

@@ -8,6 +8,10 @@ print("Script started")
 wine_data = pd.read_csv('raw_wine_data.csv')
 print("Data loaded")
 
+# Combine region_1 and region_2 into a single region column
+wine_data['region'] = wine_data['region_1'].fillna('') + ' ' + wine_data['region_2'].fillna('')
+wine_data['region'] = wine_data['region'].str.strip().replace('', 'Unknown')
+
 # Text preprocessing function
 def preprocess_text(text):
     import re
@@ -43,3 +47,4 @@ joblib.dump(tfidf_matrix, 'tfidf_matrix.pkl')
 print("Data and model saved")
 
 print("Script finished")
+
