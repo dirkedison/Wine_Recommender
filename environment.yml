@@ -1,0 +1,12 @@
+name: wine-env
+channels:
+  - defaults
+dependencies:
+  - python=3.8
+  - pandas
+  - scikit-learn
+  - joblib
+  - nltk
+  - pip
+  - pip:
+      - streamlit
