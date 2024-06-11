@@ -1,3 +1,13 @@
+import nltk
+
+# Ensure necessary NLTK resources are available
+try:
+    nltk.data.find('corpora/stopwords')
+    nltk.data.find('corpora/wordnet')
+except LookupError:
+    nltk.download('stopwords')
+    nltk.download('wordnet')
+
 import pandas as pd
 from sklearn.feature_extraction.text import TfidfVectorizer
 import joblib

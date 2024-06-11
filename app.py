@@ -2,6 +2,15 @@ import streamlit as st
 import pandas as pd
 import joblib
 from sklearn.metrics.pairwise import cosine_similarity
+import nltk
+
+# Ensure necessary NLTK resources are available
+try:
+    nltk.data.find('corpora/stopwords')
+    nltk.data.find('corpora/wordnet')
+except LookupError:
+    nltk.download('stopwords')
+    nltk.download('wordnet')
 
 # Load the processed data and TF-IDF vectorizer
 wine_data = pd.read_csv('processed_wine_data.csv')
